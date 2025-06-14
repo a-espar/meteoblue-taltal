@@ -31,13 +31,21 @@
       height: 100%;
       width: 100%;
     }
+    .custom-marker {
+      background-image: url("https://www.svgrepo.com/show/393493/wind-energy-wind-mill-wind-turbine.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div id="mapContainer"></div>
 
   <script>
-    // Set location of Horizonte Wind Farm
+    // Location: Horizonte Wind Farm
     const horizonteCoordinates = [-69.833188, -24.969911];
 
     const mapboxMap = new mapboxgl.Map({
@@ -55,7 +63,6 @@
     const inventoryUrl =
       "https://maps-api.meteoblue.com/v1/map/inventory/filter?lang=en&apikey=CoNOYmRQEU5Xnsr7&maps=windAnimation&temperatureUnit=CELSIUS&velocityUnit=KILOMETER_PER_HOUR&lengthUnit=metric&overlays=pressure2mOverlay,graticuleOverlay";
 
-    // Load Meteoblue weather layers
     new meteoblueMapsPlugin({
       mapboxMap: mapboxMap,
       inventory: inventoryUrl,
@@ -63,11 +70,15 @@
       canUseRestricted: true,
     });
 
-    // Add a marker at Horizonte Wind Farm
-    new mapboxgl.Marker({ color: "red" })
+    // Add wind turbine icon marker
+    const el = document.createElement("div");
+    el.className = "custom-marker";
+
+    new mapboxgl.Marker(el)
       .setLngLat(horizonteCoordinates)
-      .setPopup(new mapboxgl.Popup().setText("Horizonte Wind Farm")) // optional popup
+      .setPopup(new mapboxgl.Popup().setText("Horizonte Wind Farm"))
       .addTo(mapboxMap);
   </script>
 </body>
 </html>
+
