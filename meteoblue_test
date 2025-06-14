@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meteoblue Map</title>
+
+  <script
+    src="https://static.meteoblue.com/cdn/mapbox-gl-js/v1.11.1/mapbox-gl.js"
+    integrity="sha512-v5PfWsWi47/AZBVL7WMNqdbM1OMggp9Ce408yX/X9wg87Kjzb1xqpO2Ul0Oue8Vl9kKOcwPM2MWWkTbUjRxZOg=="
+    crossorigin="anonymous"
+  ></script>
+
+  <link
+    rel="stylesheet"
+    href="https://static.meteoblue.com/cdn/mapbox-gl-js/v1.11.1/mapbox-gl.css"
+    integrity="sha512-xY1TAM00L9X8Su9zNuJ8nBZsGQ8IklX703iq4gWnsw6xCg+McrHXEwbBkNaWFHSqmf6e7BpxD6aJQLKAcsGSdA=="
+    crossorigin="anonymous"
+  />
+
+  <script src="https://static.meteoblue.com/lib/maps-plugin/v0.x/maps-plugin.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    #mapContainer {
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="mapContainer"></div>
+
+  <script>
+    const mapboxMap = new mapboxgl.Map({
+      container: "mapContainer",
+      center: [7.57327 , 47.5584],
+      zoom: 5,
+      minZoom: 0,
+      maxZoom: 24,
+      hash: false,
+      attributionControl: false,
+      keyboard: false,
+    });
+
+    const apiKey = "CoNOYmRQEU5Xnsr7";
+    const inventoryUrl = "https://maps-api.meteoblue.com/v1/map/inventory/filter?lang=en&apikey=CoNOYmRQEU5Xnsr7&maps=windAnimation&temperatureUnit=CELSIUS&velocityUnit=KILOMETER_PER_HOUR&lengthUnit=metric&overlays=pressure2mOverlay,graticuleOverlay";
+
+    new meteoblueMapsPlugin({
+      mapboxMap: mapboxMap,
+      inventory: inventoryUrl,
+      apiKey: apiKey,
+      canUseRestricted: true,
+    });
+  </script>
+</body>
+</html>
