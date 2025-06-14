@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meteoblue Map</title>
+  <title>Horizonte Wind Farm - Meteoblue Map</title>
 
+  <!-- Mapbox GL JS -->
   <script
     src="https://static.meteoblue.com/cdn/mapbox-gl-js/v1.11.1/mapbox-gl.js"
     integrity="sha512-v5PfWsWi47/AZBVL7WMNqdbM1OMggp9Ce408yX/X9wg87Kjzb1xqpO2Ul0Oue8Vl9kKOcwPM2MWWkTbUjRxZOg=="
     crossorigin="anonymous"
   ></script>
-
   <link
     rel="stylesheet"
     href="https://static.meteoblue.com/cdn/mapbox-gl-js/v1.11.1/mapbox-gl.css"
@@ -18,6 +18,7 @@
     crossorigin="anonymous"
   />
 
+  <!-- Meteoblue Plugin -->
   <script src="https://static.meteoblue.com/lib/maps-plugin/v0.x/maps-plugin.js"></script>
 
   <style>
@@ -36,10 +37,13 @@
   <div id="mapContainer"></div>
 
   <script>
+    // Set location of Horizonte Wind Farm
+    const horizonteCoordinates = [-69.833188, -24.969911];
+
     const mapboxMap = new mapboxgl.Map({
       container: "mapContainer",
-      center: [7.57327 , 47.5584],
-      zoom: 5,
+      center: horizonteCoordinates,
+      zoom: 12,
       minZoom: 0,
       maxZoom: 24,
       hash: false,
@@ -48,14 +52,22 @@
     });
 
     const apiKey = "CoNOYmRQEU5Xnsr7";
-    const inventoryUrl = "https://maps-api.meteoblue.com/v1/map/inventory/filter?lang=en&apikey=CoNOYmRQEU5Xnsr7&maps=windAnimation&temperatureUnit=CELSIUS&velocityUnit=KILOMETER_PER_HOUR&lengthUnit=metric&overlays=pressure2mOverlay,graticuleOverlay";
+    const inventoryUrl =
+      "https://maps-api.meteoblue.com/v1/map/inventory/filter?lang=en&apikey=CoNOYmRQEU5Xnsr7&maps=windAnimation&temperatureUnit=CELSIUS&velocityUnit=KILOMETER_PER_HOUR&lengthUnit=metric&overlays=pressure2mOverlay,graticuleOverlay";
 
+    // Load Meteoblue weather layers
     new meteoblueMapsPlugin({
       mapboxMap: mapboxMap,
       inventory: inventoryUrl,
       apiKey: apiKey,
       canUseRestricted: true,
     });
+
+    // Add a marker at Horizonte Wind Farm
+    new mapboxgl.Marker({ color: "red" })
+      .setLngLat(horizonteCoordinates)
+      .setPopup(new mapboxgl.Popup().setText("Horizonte Wind Farm")) // optional popup
+      .addTo(mapboxMap);
   </script>
 </body>
 </html>
