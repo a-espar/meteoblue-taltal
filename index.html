@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Horizonte Wind Farm - Meteoblue Map</title>
 
-  <!-- Mapbox GL JS -->
+  <!-- Mapbox GL -->
   <script
     src="https://static.meteoblue.com/cdn/mapbox-gl-js/v1.11.1/mapbox-gl.js"
     integrity="sha512-v5PfWsWi47/AZBVL7WMNqdbM1OMggp9Ce408yX/X9wg87Kjzb1xqpO2Ul0Oue8Vl9kKOcwPM2MWWkTbUjRxZOg=="
@@ -45,23 +45,22 @@
   <div id="mapContainer"></div>
 
   <script>
-    // Location: Horizonte Wind Farm
     const horizonteCoordinates = [-69.833188, -24.969911];
 
     const mapboxMap = new mapboxgl.Map({
       container: "mapContainer",
       center: horizonteCoordinates,
-      zoom: 12,
-      minZoom: 0,
+      zoom: 16,
+      minZoom: 5,
       maxZoom: 24,
       hash: false,
       attributionControl: false,
       keyboard: false,
+      maxBounds: [[-69.989217, -25.052451], [-69.684616, -24.891737]]
     });
 
     const apiKey = "CoNOYmRQEU5Xnsr7";
-    const inventoryUrl =
-      "https://maps-api.meteoblue.com/v1/map/inventory/filter?lang=en&apikey=CoNOYmRQEU5Xnsr7&maps=windAnimation&temperatureUnit=CELSIUS&velocityUnit=KILOMETER_PER_HOUR&lengthUnit=metric&overlays=pressure2mOverlay,graticuleOverlay";
+    const inventoryUrl = "https://maps-api.meteoblue.com/v1/map/inventory/filter?lang=en&apikey=CoNOYmRQEU5Xnsr7&maps=windAnimation,satellite,radar,cloudsAndPrecipitation,wind,gust,humidity,warningsAndRisk&temperatureUnit=CELSIUS&velocityUnit=METER_PER_SECOND&lengthUnit=metric&overlays=pressure2mOverlay,graticuleOverlay";
 
     new meteoblueMapsPlugin({
       mapboxMap: mapboxMap,
@@ -70,7 +69,7 @@
       canUseRestricted: true,
     });
 
-    // Add wind turbine icon marker
+    // Wind turbine marker
     const el = document.createElement("div");
     el.className = "custom-marker";
 
