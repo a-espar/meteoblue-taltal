@@ -50,17 +50,17 @@
     const mapboxMap = new mapboxgl.Map({
       container: "mapContainer",
       center: horizonteCoordinates,
-      zoom: 16,
-      minZoom: 5,
+      zoom: 15,
+      minZoom: 0,
       maxZoom: 24,
-      hash: false,
+      hash: true,
       attributionControl: false,
       keyboard: false,
       maxBounds: [[-69.989217, -25.052451], [-69.684616, -24.891737]]
     });
 
     const apiKey = "CoNOYmRQEU5Xnsr7";
-    const inventoryUrl = "https://maps-api.meteoblue.com/v1/map/inventory/filter?lang=en&apikey=CoNOYmRQEU5Xnsr7&maps=windAnimation,satellite,radar,cloudsAndPrecipitation,wind,gust,humidity,warningsAndRisk&temperatureUnit=CELSIUS&velocityUnit=METER_PER_SECOND&lengthUnit=metric&overlays=pressure2mOverlay,graticuleOverlay";
+    const inventoryUrl = "https://maps-api.meteoblue.com/v1/map/inventory/filter?lang=en&apikey=CoNOYmRQEU5Xnsr7&maps=windAnimation,satellite,radar,cloudsAndPrecipitation,temperature,wind,gust,humidity,warningsAndRisk&temperatureUnit=CELSIUS&velocityUnit=METER_PER_SECOND&lengthUnit=metric&overlays=pressure2mOverlay,graticuleOverlay";
 
     new meteoblueMapsPlugin({
       mapboxMap: mapboxMap,
